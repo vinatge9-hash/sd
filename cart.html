@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Niyantri Cafe - Cart</title>
+  <meta name="description" content="Your cart at Niyantri Cafe. Review items and checkout with PayPal Sandbox." />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD"></script>
+</head>
+<body id="body" class="min-h-screen bg-gradient-to-br from-yellow-50 to-amber-100 opacity-0 transition-opacity duration-700">
+  <header class="bg-amber-50 shadow">
+    <nav class="container mx-auto px-4 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="text-amber-800" aria-label="coffee logo small">
+          <path d="M3 12h6l3-7 3 7h6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="text-xl font-semibold text-amber-800">Niyantri Cafe</span>
+      </div>
+      <ul class="hidden md:flex items-center space-x-6 text-gray-700">
+        <li><a href="./index.html" class="hover:text-amber-700">Home</a></li>
+        <li><a href="./menu.html" class="hover:text-amber-700">Menu</a></li>
+        <li><a href="./cart.html" class="hover:text-amber-700 flex items-center">Cart <span class="ml-2 inline-flex items-center justify-center w-6 h-6 rounded-full bg-amber-200 text-amber-800 text-xs" id="cart-count">0</span></a></li>
+        <li><a href="./about.html" class="hover:text-amber-700">About</a></li>
+        <li><a href="./contact.html" class="hover:text-amber-700">Contact</a></li>
+      </ul>
+      <button class="md:hidden" id="mobile-menu-btn" aria-label="Open Menu">
+        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" class="text-amber-800" viewBox="0 0 24 24">
+          <path d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </nav>
+    <div id="mobile-menu" class="md:hidden hidden px-4 pb-4">
+      <a href="./index.html" class="block py-2">Home</a>
+      <a href="./menu.html" class="block py-2">Menu</a>
+      <a href="./cart.html" class="block py-2">Cart (<span id="cart-count-mobile">0</span>)</a>
+      <a href="./about.html" class="block py-2">About</a>
+      <a href="./contact.html" class="block py-2">Contact</a>
+    </div>
+  </header>
+
+  <main class="container mx-auto px-4 py-12" id="page-content">
+    <section>
+      <h1 class="text-3xl font-bold text-amber-800" style="font-family: 'Cormorant Garamond', serif;">Your Cart</h1>
+      <p class="text-gray-700 mb-6">Review items and proceed to payment with PayPal Sandbox.</p>
+    </section>
+
+    <section id="cart-section" class="bg-white/70 backdrop-filter backdrop-blur rounded-xl shadow-md p-4" style="backdrop-filter: saturate(180%) blur(6px);">
+      <div id="cart-items-container" class="divide-y-2"></div>
+      <div class="flex items-center justify-between mt-4">
+        <span class="font-semibold">Total</span>
+        <span id="cart-total" class="font-semibold text-xl">0.00</span>
+      </div>
+      <div class="mt-4 flex items-center gap-4">
+        <button onclick="proceedToCheckout()" class="px-4 py-2 rounded bg-amber-700 text-white hover:bg-amber-600 transition">Proceed to Checkout</button>
+        <button onclick="localStorage.removeItem('shoppingCart'); updateCartCount(); renderCartPage()" class="px-4 py-2 rounded bg-amber-100 text-amber-800 border border-amber-300 hover:bg-amber-200 transition">Clear Cart</button>
+      </div>
+    </section>
+
+    <section id="checkout-section" class="mt-6 hidden" aria-label="Checkout">
+      <h2 class="text-2xl font-semibold" style="font-family: 'Cormorant Garamond', serif;">Checkout</h2>
+      <p class="text-sm text-gray-700 mb-2">Use PayPal to complete your purchase. This is a sandbox integration.</p>
+      <div id="paypal-button-container" class="mt-4"></div>
+    </section>
+  </main>
+
+  <footer class="bg-amber-800 text-white py-6 mt-12">
+    <div class="container mx-auto px-4 text-center">
+      <p>&copy; 2025 Niyantri Cafe</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    document.getElementById('mobile-menu-btn')?.addEventListener('click', () => {
+      const m = document.getElementById('mobile-menu');
+      if (m) m.classList.toggle('hidden');
+    });
+
+    // Cart utilities (shared across pages)
+    function getCart(){ try { return JSON.parse(localStorage.getItem('shoppingCart')) || []; } catch(e){ return []; } }
+    function saveCart(cart){ localStorage.setItem('shoppingCart', JSON.stringify(cart)); updateCartCount(); renderCartPage(); }
+    function addToCart(itemId, itemName, itemPrice){ const cart = getCart(); const existing = cart.find(i => i.id === itemId); if (existing) existing.quantity++; else cart.push({ id:itemId, name:itemName, price:itemPrice, quantity:1 }); saveCart(cart); alert(itemName + ' added to cart.'); }
+    function removeFromCart(itemId){ let cart = getCart(); cart = cart.filter(i => i.id !== itemId); saveCart(cart); renderCartPage(); updateCartCount(); }
+    function updateCartCount(){ const cart = getCart(); const total = cart.reduce((s,i)=>s+i.quantity,0); const el = document.getElementById('cart-count'); const el2 = document.getElementById('cart-count-mobile'); if (el) el.textContent = total; if (el2) el2.textContent = total; }
+
+    // Render cart on cart.html
+    function renderCartPage(){ const cart = getCart(); const container = document.getElementById('cart-items-container'); const totalElement = document.getElementById('cart-total'); const paypalBox = document.getElementById('paypal-button-container'); if (!container || !totalElement) return; container.innerHTML = ''; if (cart.length === 0){ container.innerHTML = '<div class="p-2">Your cart is empty.</div>'; totalElement.textContent = '0.00'; if (paypalBox) paypalBox.style.display = 'none'; return; } let total = 0; cart.forEach(item => {
+        const row = document.createElement('div');
+        row.className = 'flex justify-between items-center py-2';
+        row.innerHTML = `<span>${item.name} (x${item.quantity})</span><div class="flex items-center"><span>$${(item.price * item.quantity).toFixed(2)}</span><button onclick="removeFromCart('${item.id}')" class="ml-4 text-red-600 hover:text-red-800">Remove</button></div>`;
+        container.appendChild(row);
+        total += item.price * item.quantity;
+      });
+      totalElement.textContent = total.toFixed(2);
+      if (paypalBox) {
+        paypalBox.style.display = 'block';
+        // Render PayPal button only once
+        if (!paypalBox.hasChildNodes()) {
+          paypal.Buttons({
+            createOrder: function(data, actions) {
+              return actions.order.create({ purchase_units: [{ amount: { value: total.toFixed(2) } }] });
+            },
+            onApprove: function(data, actions) {
+              return actions.order.capture().then(function(details){
+                alert('Payment successful!');
+                localStorage.removeItem('shoppingCart');
+                updateCartCount(); renderCartPage();
+              });
+            }
+          }).render('#paypal-button-container');
+        }
+      }
+    }
+
+    function proceedToCheckout(){ const cart = getCart(); if (cart.length > 0){ const section = document.getElementById('checkout-section'); if (section) section.style.display = 'block'; renderCartPage(); } else { alert('Your cart is empty.'); } }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      updateCartCount();
+      if (document.getElementById('cart-items-container')) renderCartPage();
+    });
+  </script>
+</body>
+</html>
