@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Niyantri Cafe - Menu</title>
+  <meta name="description" content="Niyantri Cafe menu with handcrafted coffee and prices." />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD"></script>
+</head>
+<body id="body" class="min-h-screen bg-gradient-to-br from-yellow-50 to-amber-100 opacity-0 transition-opacity duration-700">
+  <header class="bg-amber-50 shadow">
+    <nav class="container mx-auto px-4 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="text-amber-800" aria-label="coffee logo small">
+          <path d="M3 12h6l3-7 3 7h6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="text-xl font-semibold text-amber-800">Niyantri Cafe</span>
+      </div>
+      <ul class="hidden md:flex items-center space-x-6 text-gray-700">
+        <li><a href="./index.html" class="hover:text-amber-700">Home</a></li>
+        <li><a href="./menu.html" class="hover:text-amber-700">Menu</a></li>
+        <li><a href="./cart.html" class="hover:text-amber-700 flex items-center">Cart <span class="ml-2 inline-flex items-center justify-center w-6 h-6 rounded-full bg-amber-200 text-amber-800 text-xs" id="cart-count">0</span></a></li>
+        <li><a href="./about.html" class="hover:text-amber-700">About</a></li>
+        <li><a href="./contact.html" class="hover:text-amber-700">Contact</a></li>
+      </ul>
+      <button class="md:hidden" id="mobile-menu-btn" aria-label="Open Menu">
+        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" class="text-amber-800" viewBox="0 0 24 24">
+          <path d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </nav>
+    <div id="mobile-menu" class="md:hidden hidden px-4 pb-4">
+      <a href="./index.html" class="block py-2">Home</a>
+      <a href="./menu.html" class="block py-2">Menu</a>
+      <a href="./cart.html" class="block py-2">Cart (<span id="cart-count-mobile">0</span>)</a>
+      <a href="./about.html" class="block py-2">About</a>
+      <a href="./contact.html" class="block py-2">Contact</a>
+    </div>
+  </header>
+
+  <main class="container mx-auto px-4 py-12" id="page-content">
+    <section class="mb-8">
+      <h1 class="text-3xl font-bold text-amber-800" style="font-family: 'Cormorant Garamond', serif;">Menu</h1>
+      <p class="text-gray-700">Explore our handcrafted coffees. Each item is prepared with care using premium beans.</p>
+    </section>
+
+    <section class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" aria-label="menu items">
+      <!-- Item 1 -->
+      <div class="bg-white/70 backdrop-filter backdrop-blur rounded-xl shadow-md p-4 flex flex-col" style="backdrop-filter: saturate(180%) blur(6px);">
+        <div class="flex items-center justify-between mb-2">
+          <strong>Espresso</strong>
+          <span class="text-sm text-gray-700">$3.50</span>
+        </div>
+        <p class="text-sm text-gray-600 mb-2">Rich and bold shot, the perfect pick-me-up.</p>
+        <button onclick="addToCart('espresso','Espresso',3.5)" class="mt-auto inline-flex items-center justify-center px-4 py-2 rounded bg-amber-700 text-white hover:bg-amber-600 transition">Add to Cart</button>
+      </div>
+      <!-- Item 2 -->
+      <div class="bg-white/70 backdrop-filter backdrop-blur rounded-xl shadow-md p-4 flex flex-col" style="backdrop-filter: saturate(180%) blur(6px);">
+        <div class="flex items-center justify-between mb-2">
+          <strong>Americano</strong>
+          <span class="text-sm text-gray-700">$3.00</span>
+        </div>
+        <p class="text-sm text-gray-600 mb-2">Hot water and espresso for a smooth, simple classic.</p>
+        <button onclick="addToCart('americano','Americano',3.0)" class="mt-auto inline-flex items-center justify-center px-4 py-2 rounded bg-amber-700 text-white hover:bg-amber-600 transition">Add to Cart</button>
+      </div>
+      <!-- Item 3 -->
+      <div class="bg-white/70 backdrop-filter backdrop-blur rounded-xl shadow-md p-4 flex flex-col" style="backdrop-filter: saturate(180%) blur(6px);">
+        <div class="flex items-center justify-between mb-2">
+          <strong>Cappuccino</strong>
+          <span class="text-sm text-gray-700">$4.00</span>
+        </div>
+        <p class="text-sm text-gray-600 mb-2">Espresso with steamed milk and foam art.</p>
+        <button onclick="addToCart('cappuccino','Cappuccino',4.0)" class="mt-auto inline-flex items-center justify-center px-4 py-2 rounded bg-amber-700 text-white hover:bg-amber-600 transition">Add to Cart</button>
+      </div>
+      <!-- Item 4 -->
+      <div class="bg-white/70 backdrop-filter backdrop-blur rounded-xl shadow-md p-4 flex flex-col" style="backdrop-filter: saturate(180%) blur(6px);">
+        <div class="flex items-center justify-between mb-2">
+          <strong>Latte</strong>
+          <span class="text-sm text-gray-700">$4.50</span>
+        </div>
+        <p class="text-sm text-gray-600 mb-2">Silky milk with a bold espresso base.</p>
+        <button onclick="addToCart('latte','Latte',4.5)" class="mt-auto inline-flex items-center justify-center px-4 py-2 rounded bg-amber-700 text-white hover:bg-amber-600 transition">Add to Cart</button>
+      </div>
+      <!-- Item 5 -->
+      <div class="bg-white/70 backdrop-filter backdrop-blur rounded-xl shadow-md p-4 flex flex-col" style="backdrop-filter: saturate(180%) blur(6px);">
+        <div class="flex items-center justify-between mb-2">
+          <strong>Mocha</strong>
+          <span class="text-sm text-gray-700">$4.20</span>
+        </div>
+        <p class="text-sm text-gray-600 mb-2">Espresso with chocolate, a dessert-in-a-cup.</p>
+        <button onclick="addToCart('mocha','Mocha',4.2)" class="mt-auto inline-flex items-center justify-center px-4 py-2 rounded bg-amber-700 text-white hover:bg-amber-600 transition">Add to Cart</button>
+      </div>
+      <!-- Item 6 -->
+      <div class="bg-white/70 backdrop-filter backdrop-blur rounded-xl shadow-md p-4 flex flex-col" style="backdrop-filter: saturate(180%) blur(6px);">
+        <div class="flex items-center justify-between mb-2">
+          <strong>Caramel Macchiato</strong>
+          <span class="text-sm text-gray-700">$4.80</span>
+        </div>
+        <p class="text-sm text-gray-600 mb-2">Vanilla, caramel drizzle and espresso layered beautifully.</p>
+        <button onclick="addToCart('caramel-macchiato','Caramel Macchiato',4.8)" class="mt-auto inline-flex items-center justify-center px-4 py-2 rounded bg-amber-700 text-white hover:bg-amber-600 transition">Add to Cart</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-amber-800 text-white py-6 mt-12">
+    <div class="container mx-auto px-4 text-center">
+      <p>&copy; 2025 Niyantri Cafe</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    document.getElementById('mobile-menu-btn')?.addEventListener('click', () => {
+      const m = document.getElementById('mobile-menu');
+      if (m) m.classList.toggle('hidden');
+    });
+    // Cart utilities (shared)
+    function getCart(){ try { return JSON.parse(localStorage.getItem('shoppingCart')) || []; } catch(e){ return []; } }
+    function saveCart(cart){ localStorage.setItem('shoppingCart', JSON.stringify(cart)); updateCartCount(); }
+    function addToCart(itemId, itemName, itemPrice){ const cart = getCart(); const existing = cart.find(i => i.id === itemId); if (existing) existing.quantity++; else cart.push({id:itemId,name:itemName,price:itemPrice,quantity:1}); saveCart(cart); alert(itemName + ' has been added to your cart.'); }
+    function updateCartCount(){ const cart = getCart(); const total = cart.reduce((s,i)=>s+i.quantity,0); const el = document.getElementById('cart-count'); const el2 = document.getElementById('cart-count-mobile'); if (el) el.textContent = total; if (el2) el2.textContent = total; }
+    document.addEventListener('DOMContentLoaded', ()=>{ updateCartCount(); const m = document.getElementById('mobile-menu'); if (m) m.classList.add('hidden'); });
+  </script>
+</body>
+</html>
