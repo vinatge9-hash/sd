@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Niyantri Cafe - Home</title>
+  <meta name="description" content="Niyantri Cafe - a warm coffee shop in Hyderabad with handcrafted brews and a cozy online menu." />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD"></script>
+</head>
+<body id="body" class="min-h-screen bg-gradient-to-br from-yellow-50 to-amber-100 opacity-0 transition-opacity duration-700">
+  <header class="bg-amber-50 shadow">
+    <nav class="container mx-auto px-4 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="text-amber-800" aria-label="coffee logo">
+          <path d="M3 12h6l3-7 3 7h6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="text-xl font-semibold text-amber-800">Niyantri Cafe</span>
+      </div>
+      <ul class="hidden md:flex items-center space-x-6 text-gray-700">
+        <li><a href="./index.html" class="hover:text-amber-700">Home</a></li>
+        <li><a href="./menu.html" class="hover:text-amber-700">Menu</a></li>
+        <li><a href="./cart.html" class="hover:text-amber-700 flex items-center">Cart <span class="ml-2 inline-flex items-center justify-center w-6 h-6 rounded-full bg-amber-200 text-amber-800 text-xs" id="cart-count">0</span></a></li>
+        <li><a href="./about.html" class="hover:text-amber-700">About</a></li>
+        <li><a href="./contact.html" class="hover:text-amber-700">Contact</a></li>
+      </ul>
+      <button class="md:hidden" id="mobile-menu-btn" aria-label="Open Menu">
+        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" class="text-amber-800" viewBox="0 0 24 24">
+          <path d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </nav>
+    <div id="mobile-menu" class="md:hidden hidden px-4 pb-4">
+      <a href="./index.html" class="block py-2">Home</a>
+      <a href="./menu.html" class="block py-2">Menu</a>
+      <a href="./cart.html" class="block py-2">Cart (<span id="cart-count-mobile">0</span>)</a>
+      <a href="./about.html" class="block py-2">About</a>
+      <a href="./contact.html" class="block py-2">Contact</a>
+    </div>
+  </header>
+
+  <main class="container mx-auto px-4 py-12" id="page-content">
+    <!-- Hero (with inline font usage as part of advanced font rule) -->
+    <section class="rounded-xl bg-gradient-to-br from-amber-100 via-amber-200 to-amber-300 p-8 md:p-16 shadow-lg w-full" style="font-family: 'Cormorant Garamond', serif;">
+      <div class="grid md:grid-cols-2 items-center gap-8">
+        <div>
+          <h1 class="text-4xl md:text-5xl font-bold text-amber-900 mb-4">Niyantri Cafe</h1>
+          <p class="text-lg text-amber-800 mb-6">A warm coffee escape in Hyderabad. Handcrafted brews, cozy vibes, and heartfelt service.</p>
+          <div class="flex items-center gap-4">
+            <a href="./menu.html" class="inline-flex items-center px-6 py-3 rounded-full bg-amber-700 text-white hover:bg-amber-600 transition">Explore Menu</a>
+            <a href="./contact.html" class="inline-flex items-center px-5 py-3 rounded-full bg-amber-100 text-amber-800 border border-amber-300 hover:bg-amber-200 transition">Find Us</a>
+          </div>
+        </div>
+        <div class="flex justify-center" aria-label="coffee cup">
+          <svg width="260" height="180" viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Coffee cup illustration">
+            <defs>
+              <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+                <stop stop-color="#8B5E3C"/>
+                <stop offset="1" stop-color="#C19A6B"/>
+              </linearGradient>
+            </defs>
+            <rect x="20" y="40" width="140" height="70" rx="15" fill="url(#g)" opacity="0.9"/>
+            <path d="M60 60h40v20H60z" fill="white" opacity="0.6"/>
+            <path d="M30 110h140" stroke="white" stroke-width="4" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quotes / testimonials -->
+    <section class="mt-16" data-animate="fade">
+      <h2 class="text-2xl font-semibold text-amber-800 mb-4" style="font-family: 'Cormorant Garamond', serif;">What customers say</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="p-4 bg-white/60 backdrop-filter backdrop-blur rounded-xl shadow-md" style="backdrop-filter: saturate(180%) blur(6px);">
+          <div class="flex items-center mb-2">
+            <svg width="20" height="20" fill="none" stroke="currentColor" class="text-amber-700" stroke-width="2" viewBox="0 0 24 24" aria-label="person">
+              <path d="M12 12a5 5 0 100-10 5 5 0 000 10z"/>
+              <path d="M3 21a8 8 0 0126 0"/>
+            </svg>
+            <span class="ml-2 font-semibold">Aarav</span>
+          </div>
+          <p class="text-sm text-gray-700">Amazing aroma and latte art that makes my day.</p>
+        </div>
+        <div class="p-4 bg-white/60 backdrop-filter backdrop-blur rounded-xl shadow-md" style="backdrop-filter: saturate(180%) blur(6px);">
+          <div class="flex items-center mb-2">
+            <svg width="20" height="20" fill="none" stroke="currentColor" class="text-amber-700" stroke-width="2" viewBox="0 0 24 24" aria-label="person">
+              <path d="M12 12a5 5 0 100-10 5 5 0 000 10z"/>
+              <path d="M3 21a8 8 0 0126 0"/>
+            </svg>
+            <span class="ml-2 font-semibold">Meera</span>
+          </div>
+          <p class="text-sm text-gray-700">Cozy vibe and friendly staff. A perfect afternoon spot.</p>
+        </div>
+        <div class="p-4 bg-white/60 backdrop-filter backdrop-blur rounded-xl shadow-md" style="backdrop-filter: saturate(180%) blur(6px);">
+          <div class="flex items-center mb-2">
+            <svg width="20" height="20" fill="none" stroke="currentColor" class="text-amber-700" stroke-width="2" viewBox="0 0 24 24" aria-label="star">
+              <path d="M12 2l3 6 7 .5-5 4.5 1.5 7-6.5-3.5-6.5 3.5 1.5-7L2 14.5 9 8z"/>
+            </svg>
+            <span class="ml-2 font-semibold">Priya</span>
+          </div>
+          <p class="text-sm text-gray-700">Love the warmth and the cocoa blends. A must-visit!</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-amber-800 text-white py-6 mt-12">
+    <div class="container mx-auto px-4 text-center">
+      <p>&copy; 2025 Niyantri Cafe</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    document.getElementById('mobile-menu-btn')?.addEventListener('click', () => {
+      const m = document.getElementById('mobile-menu');
+      if (m) m.classList.toggle('hidden');
+    });
+
+    // Cart utilities (shared across pages)
+    function getCart() {
+      try { return JSON.parse(localStorage.getItem('shoppingCart')) || []; } catch(e) { return []; }
+    }
+    function saveCart(cart) {
+      localStorage.setItem('shoppingCart', JSON.stringify(cart));
+      updateCartCount();
+    }
+    function addToCart(itemId, itemName, itemPrice) {
+      const cart = getCart();
+      const existing = cart.find(i => i.id === itemId);
+      if (existing) existing.quantity++; else cart.push({ id: itemId, name: itemName, price: itemPrice, quantity: 1 });
+      saveCart(cart);
+      alert(itemName + ' has been added to your cart.');
+    }
+    function removeFromCart(itemId) {
+      let cart = getCart();
+      cart = cart.filter(i => i.id !== itemId);
+      saveCart(cart);
+      if (document.getElementById('cart-items-container')) renderCartPage();
+      updateCartCount();
+    }
+    function updateCartCount() {
+      const cart = getCart();
+      const total = cart.reduce((s, i) => s + i.quantity, 0);
+      const el = document.getElementById('cart-count');
+      const el2 = document.getElementById('cart-count-mobile');
+      if (el) el.textContent = total;
+      if (el2) el2.textContent = total;
+    }
+    // Cart page renderer is on cart.html; here we just ensure a global function exists
+    function renderCartPage() {
+      // placeholder: actual rendering on cart.html
+    }
+    function proceedToCheckout() {
+      const cart = getCart();
+      if (cart.length > 0) {
+        // reveal checkout area on cart page if present
+        const panel = document.getElementById('checkout-section');
+        if (panel) {
+          panel.style.display = 'block';
+          renderCartPage();
+        }
+      } else {
+        alert('Your cart is empty.');
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      updateCartCount();
+      // Scroll reveal for sections with data-animate
+      const toReveal = document.querySelectorAll('[data-animate="fade"]');
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.remove('opacity-0', 'translate-y-6');
+            e.target.style.transitionDuration = '700ms';
+            obs.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.2 });
+      toReveal.forEach(el => {
+        el.classList.add('opacity-0', 'translate-y-6');
+        obs.observe(el);
+      });
+      const m = document.getElementById('mobile-menu');
+      if (m) m.classList.add('hidden');
+
+      // If cart.html is loaded, render cart
+      if (document.getElementById('cart-items-container')) {
+        // Nothing here; cart.html will have its own script block
+      }
+    });
+  </script>
+</body>
+</html>
